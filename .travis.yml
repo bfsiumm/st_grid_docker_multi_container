@@ -1,0 +1,28 @@
+#sudo access is required
+sudo: required
+#we require to use docker service 
+services:
+  - docker
+#build the test  docker image for our react client app
+before_install:
+  - docker build -t miladi7/react-client-test -f ./client/Dockerfile.dev ./client
+
+#run the test for our react client app
+scripts:
+  - docker run -e CI=true miladi7/react-client-test npm run test
+
+#building our production images
+after_success:
+  - docker build -t miladi7/production-react-client ./client
+  - docker build -t miladi7/production-server ./server
+  - docker build -t miladi7/production-worker ./worker
+  - docker build -t miladi7/nginx ./nginx
+  #after building the production images, we will push them to docker hub. But first we want to login to our docker account through travis cli
+  #login to docker cli
+  # $DOCKER_PASSWORD AND $DOCKER_ID are envirement variable that i defined in travis ci website, in the setting section for this project for security
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #take those images and push them to docker hub
+  - docker push miladi7/production-react-client
+  - docker push miladi7/production-server
+  - docker push miladi7/production-worker
+  - docker push miladi7/nginx ./nginx

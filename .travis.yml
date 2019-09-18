@@ -1,4 +1,5 @@
 #sudo access is required
+language: generic
 sudo: required
 #we require to use docker service 
 services:

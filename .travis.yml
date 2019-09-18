@@ -26,4 +26,4 @@ after_success:
   - docker push miladi7/production-react-client
   - docker push miladi7/production-server
   - docker push miladi7/production-worker
-  - docker push miladi7/nginx ./nginx
+  - docker push miladi7/production-nginx ./nginx

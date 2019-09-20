@@ -5,19 +5,22 @@
             "name": "client",
             "image": "miladi7/production-react-client",
             "hostname": "client",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "server",
             "image": "miladi7/production-server",
             "hostname": "api",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "worker",
             "image": "miladi7/production-worker",
             "hostname":"worker",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "nginx",
@@ -31,7 +34,8 @@
                 }
             ],
             "links": ["client", "server"],
-            "links1":["client"]
+            "links1":["client"],
+            "memory": 128
         }
     ]
 

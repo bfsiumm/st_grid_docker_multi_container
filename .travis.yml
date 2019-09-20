@@ -27,3 +27,17 @@ after_success:
   - docker push miladi7/production-server
   - docker push miladi7/production-worker
   - docker push miladi7/production-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-3"
+  app: "multi-container-docker"
+  env: "MultiContainerDocker-env"
+  bucket_name: "elasticbeanstalk-eu-west-3-790084880600"
+  bucket_path: docker-multicontainer-app
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_ACCESS_KEY
